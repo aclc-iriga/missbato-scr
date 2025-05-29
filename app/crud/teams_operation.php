@@ -10,6 +10,10 @@ if(isset($_POST['insertdata'])) {
     $number = $_POST['number'];
     $name = $_POST['name'];
     $location = $_POST['location'];
+    $age = intval($_POST['age']);
+    $height = $_POST['height'];
+    $vital_stats = $_POST['vital_stats'];
+    $is_native = intval($_POST['is_native']);
     $file_name = '';
 
     if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
@@ -32,6 +36,10 @@ if(isset($_POST['insertdata'])) {
     $team->setNumber($number);
     $team->setName($name);
     $team->setLocation($location);
+    $team->setAge($age);
+    $team->setHeight($height);
+    $team->setVitalStats($vital_stats);
+    $team->setIsNative($is_native);
     $team->setAvatar($file_name);
     $team->insert();
 }
@@ -44,6 +52,10 @@ if (isset($_POST['updatedata'])) {
     $number = $_POST['number'];
     $name = $_POST['name'];
     $location = $_POST['location'];
+    $age = intval($_POST['age']);
+    $height = $_POST['height'];
+    $vital_stats = $_POST['vital_stats'];
+    $is_native = intval($_POST['is_native']);
     $file_name = '';
 
     if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
@@ -67,6 +79,10 @@ if (isset($_POST['updatedata'])) {
     $team->setNumber($number);
     $team->setName($name);
     $team->setLocation($location);
+    $team->setAge($age);
+    $team->setHeight($height);
+    $team->setVitalStats($vital_stats);
+    $team->setIsNative($is_native);
     $team->setAvatar($file_name);
     $team->update();
 }

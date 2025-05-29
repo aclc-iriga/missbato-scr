@@ -12,7 +12,7 @@ export default createStore({
 
     state: {
         app: {
-            title: 'Miss Kaogma 2024 (Screening)',
+            title: 'Miss Bato 2025 (Screening)',
             org: 'ACLC College Iriga',
             backendDir: 'app',
             sideNav: false
@@ -21,7 +21,7 @@ export default createStore({
             height: 0
         },
         rating: {
-            min: 80,
+            min: 50,
             max: 100
         },
         deduction: {

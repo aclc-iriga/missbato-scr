@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2024 at 01:00 PM
+-- Generation Time: May 29, 2025 at 08:37 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mk-scr`
+-- Database: `missbato-scr`
 --
 
 -- --------------------------------------------------------
@@ -104,7 +104,7 @@ CREATE TABLE `competitions` (
 --
 
 INSERT INTO `competitions` (`id`, `slug`, `title`, `created_at`, `updated_at`) VALUES
-(1, 'mk-2023', 'Miss Kaogma 2023', '2023-04-06 13:24:04', '2023-04-15 02:40:12');
+(1, 'missbato-2025', 'Miss Bato 2025', '2023-04-06 13:24:04', '2023-04-15 02:40:12');
 
 -- --------------------------------------------------------
 
@@ -181,7 +181,7 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `category_id`, `slug`, `title`, `created_at`, `updated_at`) VALUES
-(1, 1, 'screening-1', 'Screening 1', '2023-04-15 02:42:24', '2023-04-15 02:56:51');
+(1, 1, 'screening', 'Screening', '2023-04-15 02:42:24', '2025-05-29 06:32:32');
 
 -- --------------------------------------------------------
 
@@ -208,11 +208,11 @@ CREATE TABLE `judges` (
 --
 
 INSERT INTO `judges` (`id`, `number`, `name`, `avatar`, `username`, `password`, `active_portion`, `called_at`, `pinged_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Scr1 - Judge 01', 'no-avatar.jpg', 'judge101', 'judge101', NULL, NULL, NULL, '2023-04-06 13:58:11', '2024-04-13 18:34:14'),
-(2, 2, 'Scr1 - Judge 02', 'no-avatar.jpg', 'judge102', 'judge102', NULL, NULL, NULL, '2023-04-06 13:58:28', '2023-04-16 13:02:45'),
-(3, 3, 'Scr1 - Judge 03', 'no-avatar.jpg', 'judge103', 'judge103', NULL, NULL, NULL, '2023-04-06 13:58:42', '2023-04-16 13:02:48'),
-(4, 4, 'Scr1 - Judge 04', 'no-avatar.jpg', 'judge104', 'judge104', NULL, NULL, NULL, '2023-04-06 13:59:26', '2023-04-16 13:02:50'),
-(5, 5, 'Scr1 - Judge 05', 'no-avatar.jpg', 'judge105', 'judge105', NULL, NULL, NULL, '2023-04-06 14:00:00', '2024-04-13 12:49:45');
+(1, 1, 'Judge 01', 'no-avatar.jpg', 'judge01', 'judge01', NULL, NULL, NULL, '2023-04-06 13:58:11', '2025-05-29 06:36:39'),
+(2, 2, 'Judge 02', 'no-avatar.jpg', 'judge02', 'judge02', NULL, NULL, NULL, '2023-04-06 13:58:28', '2025-05-29 06:36:43'),
+(3, 3, 'Judge 03', 'no-avatar.jpg', 'judge03', 'judge03', NULL, NULL, NULL, '2023-04-06 13:58:42', '2025-05-29 06:36:46'),
+(4, 4, 'Judge 04', 'no-avatar.jpg', 'judge04', 'judge04', NULL, NULL, NULL, '2023-04-06 13:59:26', '2025-05-29 06:36:50'),
+(5, 5, 'Judge 05', 'no-avatar.jpg', 'judge05', 'judge05', NULL, NULL, NULL, '2023-04-06 14:00:00', '2025-05-29 06:36:53');
 
 -- --------------------------------------------------------
 
@@ -322,6 +322,7 @@ CREATE TABLE `teams` (
   `age` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
   `height` varchar(16) NOT NULL DEFAULT '',
   `vital_stats` varchar(32) NOT NULL DEFAULT '',
+  `is_native` tinyint(1) NOT NULL DEFAULT 1,
   `avatar` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -331,38 +332,38 @@ CREATE TABLE `teams` (
 -- Dumping data for table `teams`
 --
 
-INSERT INTO `teams` (`id`, `number`, `name`, `location`, `age`, `height`, `vital_stats`, `avatar`, `created_at`, `updated_at`) VALUES
-(1, 1, 'EMMYLOU BONIT', 'Camarines Sur', 25, '5\'5 ', '36 - 29 - 36', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:15:09'),
-(2, 2, 'ANTONETTE SUNGA', 'Camarines Sur', 22, '5\'2', ' 34 - 28 - 36', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:44:59'),
-(3, 3, 'IRIS ORESCA', 'Camarines Sur', 21, '5\'5', '33.5 - 26.5 - 36.5', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:46:05'),
-(4, 4, 'KAYE PAULINE SERVIDAD', 'Camarines Sur', 21, '5\'4', '33.5 - 26 - 35', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:46:59'),
-(5, 5, 'MARY JOY DARILAY', 'Camarines Sur', 22, '5\'7', '35.5 - 26.5 - 36', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:48:07'),
-(6, 6, 'KEINSTER KHRIZETTE RANARA\n', 'Camarines Sur', 24, '5\'8', '33 - 25 - 34', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:48:49'),
-(7, 7, 'CHRISTINE OVILLA', 'Camarines Sur', 20, '5\'3', '32 - 26 - 34', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:54'),
-(8, 8, 'CHRISTINE ARNEDO', 'Camarines Sur', 25, '5\'6', '34 - 26.5 - 36', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:56'),
-(9, 9, 'HANNAH MAE PANIBE', 'Camarines Sur', 25, '5\'4', '33 - 26 - 36', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:58'),
-(10, 10, 'NEOLI KRYSS ABARIENTOS', 'Camarines Sur', 18, '5\'4', '36 - 26 - 37', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:59'),
-(11, 11, 'MIKKI ANGELA BARCELA', 'Camarines Sur', 21, '5\'6', '33 - 26 - 35', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:01'),
-(12, 12, 'THIARA MARIE SAN PABLO', 'Camarines Sur', 21, '5\'6', '33 - 27 - 36', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:03'),
-(13, 13, 'JODELYN MENDOZA', 'Camarines Sur', 20, '5\'2', '31.5 - 25 - 35', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:05'),
-(14, 14, 'MARGA JOYCE SAYSON', 'Camarines Sur', 23, '5\'4', '32 - 25.5 - 35.5', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:07'),
-(15, 15, 'YZANDRA FELINE GOROBAT', 'Camarines Sur', 21, '5\'3', '30 - 25 - 36', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:09'),
-(16, 16, 'KASSANDRA AVENA', 'Camarines Sur', 17, '5\'3', '36 - 28 - 37', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:10'),
-(17, 17, 'CHARLENE BOHOLANO', 'Camarines Sur', 21, '5\'6', '30 - 26 - 34', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:11'),
-(18, 18, 'MARIA YSABELLE SAPIENZA', 'Camarines Sur', 19, '5\'4', '34 - 30 - 38', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:17'),
-(19, 19, 'AYSSA MILORED VILLARINA', 'Camarines Sur', 22, '5\'5', '31 - 26.5 - 35', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:15'),
-(20, 20, 'SANDIP KAUR KALER', 'Camarines Sur', 23, '5\'7', '33 - 28 - 36', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:19'),
-(21, 21, 'KATRINA CLAUDIA JAMIN', 'Camarines Sur', 22, '5\'5', '31 - 27 - 35', 'candidate.png', '2023-04-16 07:07:51', '2024-04-13 20:46:20'),
-(22, 22, 'TRISHIA BARNEDO', 'Camarines Sur', 19, '5\'4', '32 - 27 - 36', 'candidate.png', '2023-04-16 07:49:21', '2024-04-13 20:46:21'),
-(23, 23, 'MARIA PAULA BATALLA', 'Camarines Sur', 25, '5\'3', '32 - 25 - 34', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:23'),
-(24, 24, 'RUFFA MAE ARMILLOS', 'Camarines Sur', 23, '5\'5', '33 - 25 - 35', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:24'),
-(25, 25, 'SEANNEL ADDERIE CRUZ ', 'Camarines Sur', 22, '5\'3', '32 - 25.5 - 34', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:27'),
-(26, 26, 'PRINCESS LYN LANZUELA', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:31'),
-(27, 27, 'SHAINA RABACAL', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:34'),
-(28, 28, 'JAMAICA JOVELLE ORTIZ', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:37'),
-(29, 29, 'ANGELA SHERIZA TINO', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:40'),
-(30, 30, 'KRISTEL OLIVE REJESUS', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:43'),
-(31, 31, 'TRIZIA MARIE ABONITA', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:45');
+INSERT INTO `teams` (`id`, `number`, `name`, `location`, `age`, `height`, `vital_stats`, `is_native`, `avatar`, `created_at`, `updated_at`) VALUES
+(1, 1, 'EMMYLOU BONIT', 'Camarines Sur', 25, '5\'5 ', '36 - 29 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:15:09'),
+(2, 2, 'ANTONETTE SUNGA', 'Camarines Sur', 22, '5\'2', ' 34 - 28 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:44:59'),
+(3, 3, 'IRIS ORESCA', 'Camarines Sur', 21, '5\'5', '33.5 - 26.5 - 36.5', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:46:05'),
+(4, 4, 'KAYE PAULINE SERVIDAD', 'Camarines Sur', 21, '5\'4', '33.5 - 26 - 35', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:46:59'),
+(5, 5, 'MARY JOY DARILAY', 'Camarines Sur', 22, '5\'7', '35.5 - 26.5 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:48:07'),
+(6, 6, 'KEINSTER KHRIZETTE RANARA\n', 'Camarines Sur', 24, '5\'8', '33 - 25 - 34', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:48:49'),
+(7, 7, 'CHRISTINE OVILLA', 'Camarines Sur', 20, '5\'3', '32 - 26 - 34', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:54'),
+(8, 8, 'CHRISTINE ARNEDO', 'Camarines Sur', 25, '5\'6', '34 - 26.5 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:56'),
+(9, 9, 'HANNAH MAE PANIBE', 'Camarines Sur', 25, '5\'4', '33 - 26 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:58'),
+(10, 10, 'NEOLI KRYSS ABARIENTOS', 'Camarines Sur', 18, '5\'4', '36 - 26 - 37', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:59'),
+(11, 11, 'MIKKI ANGELA BARCELA', 'Camarines Sur', 21, '5\'6', '33 - 26 - 35', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:01'),
+(12, 12, 'THIARA MARIE SAN PABLO', 'Camarines Sur', 21, '5\'6', '33 - 27 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:03'),
+(13, 13, 'JODELYN MENDOZA', 'Camarines Sur', 20, '5\'2', '31.5 - 25 - 35', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:05'),
+(14, 14, 'MARGA JOYCE SAYSON', 'Camarines Sur', 23, '5\'4', '32 - 25.5 - 35.5', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:07'),
+(15, 15, 'YZANDRA FELINE GOROBAT', 'Camarines Sur', 21, '5\'3', '30 - 25 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:09'),
+(16, 16, 'KASSANDRA AVENA', 'Camarines Sur', 17, '5\'3', '36 - 28 - 37', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:10'),
+(17, 17, 'CHARLENE BOHOLANO', 'Camarines Sur', 21, '5\'6', '30 - 26 - 34', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:11'),
+(18, 18, 'MARIA YSABELLE SAPIENZA', 'Camarines Sur', 19, '5\'4', '34 - 30 - 38', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:17'),
+(19, 19, 'AYSSA MILORED VILLARINA', 'Camarines Sur', 22, '5\'5', '31 - 26.5 - 35', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:15'),
+(20, 20, 'SANDIP KAUR KALER', 'Camarines Sur', 23, '5\'7', '33 - 28 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:19'),
+(21, 21, 'KATRINA CLAUDIA JAMIN', 'Camarines Sur', 22, '5\'5', '31 - 27 - 35', 1, 'candidate.png', '2023-04-16 07:07:51', '2024-04-13 20:46:20'),
+(22, 22, 'TRISHIA BARNEDO', 'Camarines Sur', 19, '5\'4', '32 - 27 - 36', 1, 'candidate.png', '2023-04-16 07:49:21', '2024-04-13 20:46:21'),
+(23, 23, 'MARIA PAULA BATALLA', 'Camarines Sur', 25, '5\'3', '32 - 25 - 34', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:23'),
+(24, 24, 'RUFFA MAE ARMILLOS', 'Camarines Sur', 23, '5\'5', '33 - 25 - 35', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:24'),
+(25, 25, 'SEANNEL ADDERIE CRUZ ', 'Camarines Sur', 22, '5\'3', '32 - 25.5 - 34', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:27'),
+(26, 26, 'PRINCESS LYN LANZUELA', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:31'),
+(27, 27, 'SHAINA RABACAL', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:34'),
+(28, 28, 'JAMAICA JOVELLE ORTIZ', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:37'),
+(29, 29, 'ANGELA SHERIZA TINO', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:40'),
+(30, 30, 'KRISTEL OLIVE REJESUS', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:43'),
+(31, 31, 'TRIZIA MARIE ABONITA', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:45');
 
 -- --------------------------------------------------------
 

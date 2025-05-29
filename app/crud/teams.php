@@ -18,8 +18,9 @@
         <!-- For Icon -->
         <link rel="stylesheet" href="dist/fontawesome-6.3.0/css/all.min.css">
 
-        <title>Teams | CRUD</title>
+        <style>tr, td, th { vertical-align: middle !important; }</style>
 
+        <title>Teams | CRUD</title>
     </head>
     <body style="background-color: black">
         <!-- Modal -->
@@ -50,6 +51,29 @@
                             <div class="form-group">
                                 <label> Location </label>
                                 <input type="text" name="location" class="form-control" placeholder="Enter Location" autocomplete="off" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Age </label>
+                                <input type="number" name="age" class="form-control" placeholder="Enter Age" autocomplete="off" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Height </label>
+                                <input type="text" name="height" class="form-control" placeholder="Enter Height" autocomplete="off" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Vital Stats </label>
+                                <input type="text" name="vital_stats" class="form-control" placeholder="Enter Vital Stats" autocomplete="off" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Native </label>
+                                <select name="is_native" id="is_native" class="form-control" required>
+                                    <option value="1">YES</option>
+                                    <option value="0">NO</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
@@ -96,6 +120,29 @@
                             <div class="form-group">
                                 <label> Location </label>
                                 <input type="text" name="location" id="location" class="form-control" placeholder="Enter Location" autocomplete="off" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Age </label>
+                                <input type="number" name="age" id="age" class="form-control" placeholder="Enter Age" autocomplete="off" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Height </label>
+                                <input type="text" name="height" id="height" class="form-control" placeholder="Enter Height" autocomplete="off" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Vital Stats </label>
+                                <input type="text" name="vital_stats" id="vital_stats" class="form-control" placeholder="Enter Vital Stats" autocomplete="off" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Native </label>
+                                <select name="is_native" id="is_native" class="form-control" required>
+                                    <option value="1">YES</option>
+                                    <option value="0">NO</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
@@ -198,8 +245,12 @@
                 <tr>
                     <th scope="col" class="d-none"></th>
                     <th scope="col">Number</th>
-                    <th scope="col">Name</th>
+                    <th scope="col" style="text-align: left">Name</th>
                     <th scope="col">Location</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Height</th>
+                    <th scope="col" style="text-align: left">Vital Stats</th>
+                    <th scope="col">Native</th>
                     <th scope="col">Avatar</th>
                     <th scope="col">Operations</th>
                 </tr>
@@ -210,11 +261,21 @@
                 foreach ($teams as $team) {
                     $i += 1;
                 ?>
-                    <tr>
+                    <tr data-is-native="<?php echo $team->getIsNative(); ?>">
                         <td class="d-none"><?php echo $team->getId(); ?></td>
-                        <td><?php echo $team->getNumber(); ?></td>
-                        <td><?php echo $team->getName(); ?></td>
+                        <td style="text-align: right; padding-right: 30px;"><?php echo $team->getNumber(); ?></td>
+                        <td style="text-align: left"><?php echo $team->getName(); ?></td>
                         <td><?php echo $team->getLocation(); ?></td>
+                        <td><?php echo $team->getAge(); ?></td>
+                        <td><?php echo $team->getHeight(); ?></td>
+                        <td style="text-align: left"><?php echo $team->getVitalStats(); ?></td>
+                        <td>
+                            <?php if ($team->getIsNative()) { ?>
+                                <i class="fas fa-fw fa-check text-success"></i>
+                            <?php } else { ?>
+                                <i class="fas fa-fw fa-remove text-danger"></i>
+                            <?php } ?>
+                        </td>
                         <td><?php echo '<img src="uploads/'.$team->getAvatar().'" width="50"/>'; ?></td>
                         <td>
                             <button type="button" class="btn btn-success editbtn"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -251,7 +312,10 @@
                     $('#number').val(data[1]);
                     $('#name').val(data[2]);
                     $('#location').val(data[3]);
-                    $('#avatar').val(data[4]);
+                    $('#age').val(data[4]);
+                    $('#height').val(data[5]);
+                    $('#vital_stats').val(data[6]);
+                    $('#is_native').val($tr.attr('data-is-native'));
 
                 });
             });

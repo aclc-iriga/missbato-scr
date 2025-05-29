@@ -18,8 +18,9 @@
         <!-- For Icon -->
         <link rel="stylesheet" href="dist/fontawesome-6.3.0/css/all.min.css">
 
-        <title>Judges | CRUD</title>
+        <style>tr, td, th { vertical-align: middle !important; }</style>
 
+        <title>Judges | CRUD</title>
     </head>
     <body style="background-color: black">
         <!-- Modal -->

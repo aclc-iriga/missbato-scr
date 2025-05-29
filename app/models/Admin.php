@@ -109,10 +109,11 @@ class Admin extends User
 
         // initialize $result
         $result = [
-            'technicals' => [],
-            'judges'     => [],
-            'teams'      => [],
-            'winners'    => []
+            'technicals'      => [],
+            'judges'          => [],
+            'teams'           => [],
+            'winners'         => [],
+            'teams_with_ties' => []
         ];
 
         // get all teams
@@ -136,8 +137,8 @@ class Admin extends User
             ];
         }
 
-        // prepare $unique_average_fractional_ranks and $unique_final_adjustments
-        $unique_average_fractional_ranks = [];
+        // prepare $unique_total_fractional_ranks and $unique_final_adjustments
+        $unique_total_fractional_ranks = [];
         $unique_final_adjustments = [];
 
         foreach($teams as $team) {
@@ -256,19 +257,19 @@ class Admin extends User
             // push $team_row to $result['teams']
             $result['teams'][$key_team] = $team_row;
 
-            // push to $unique_average_fractional_ranks
-            if(!in_array($rank_average['fractional'], $unique_average_fractional_ranks))
-                $unique_average_fractional_ranks[] = $rank_average['fractional'];
+            // push to $unique_total_fractional_ranks
+            if(!in_array($rank_total['fractional'], $unique_total_fractional_ranks))
+                $unique_total_fractional_ranks[] = $rank_total['fractional'];
         }
 
-        // sort $unique_average_fractional_ranks
-        sort($unique_average_fractional_ranks);
+        // sort $unique_total_fractional_ranks
+        sort($unique_total_fractional_ranks);
 
         // gather $rank_group (for getting fractional rank)
         $rank_group = [];
         foreach($result['teams'] as $key => $team) {
             // get dense rank
-            $dense_rank = 1 + array_search($result['teams'][$key]['rank']['average']['fractional'], $unique_average_fractional_ranks);
+            $dense_rank = 1 + array_search($result['teams'][$key]['rank']['total']['fractional'], $unique_total_fractional_ranks);
             $result['teams'][$key]['rank']['initial']['dense'] = $dense_rank;
 
             // push $key to $rank_group
@@ -278,9 +279,18 @@ class Admin extends User
             $rank_group[$key_rank][] = $key;
         }
 
+        // get teams with ties
+        foreach($rank_group as $key_rank => $team_keys) {
+            if (sizeof($team_keys) > 1) {
+                foreach ($team_keys as $team_key) {
+                    $result['teams_with_ties'][] = $team_key;
+                }
+            }
+        }
+
         // get initial fractional rank
         $ctr = 0;
-        for($i = 0; $i < sizeof($unique_average_fractional_ranks); $i++) {
+        for($i = 0; $i < sizeof($unique_total_fractional_ranks); $i++) {
             $key = 'rank_' . ($i + 1);
             $group = $rank_group[$key];
             $size = sizeof($group);

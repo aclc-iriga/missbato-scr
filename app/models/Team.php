@@ -15,6 +15,7 @@ class Team extends App
     protected $age = 0;
     protected $height = '';
     protected $vital_stats = '';
+    protected $is_native = 1;
     protected $meta = '';
     protected $avatar = 'candidate.png';
     protected $disabled = false;
@@ -44,6 +45,7 @@ class Team extends App
                 $this->age         = intval($row['age']);
                 $this->height      = $row['height'];
                 $this->vital_stats = $row['vital_stats'];
+                $this->is_native   = intval($row['is_native']);
                 $this->avatar      = $row['avatar'];
                 $this->meta        = $this->parseMetaData();
             }
@@ -98,6 +100,7 @@ class Team extends App
             'age'         => $this->age,
             'height'      => $this->height,
             'vital_stats' => $this->vital_stats,
+            'is_native'   => $this->is_native,
             'meta'        => $this->meta,
             'avatar'      => $this->avatar,
             'disabled'    => $this->disabled
@@ -272,8 +275,8 @@ class Team extends App
             App::returnError('HTTP/1.1 409', 'Insert Error: team [id = ' . $this->id . '] already exists.');
 
         // proceed with insert
-        $stmt = $this->conn->prepare("INSERT INTO $this->table(number, name, location, age, height, vital_stats, avatar) VALUES(?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ississs", $this->number, $this->name, $this->location, $this->age, $this->height, $this->vital_stats, $this->avatar);
+        $stmt = $this->conn->prepare("INSERT INTO $this->table(number, name, location, age, height, vital_stats, is_native, avatar) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ississis", $this->number, $this->name, $this->location, $this->age, $this->height, $this->vital_stats, $this->is_native, $this->avatar);
         $stmt->execute();
         $this->id = $this->conn->insert_id;
     }
@@ -291,8 +294,8 @@ class Team extends App
             App::returnError('HTTP/1.1 404', 'Update Error: team [id = ' . $this->id . '] does not exist.');
 
         // proceed with update
-        $stmt = $this->conn->prepare("UPDATE $this->table SET number = ?, name = ?, location = ?, age = ?, height = ?, vital_stats = ?, avatar = ? WHERE id = ?");
-        $stmt->bind_param("ississsi", $this->number, $this->name, $this->location, $this->age, $this->height, $this->vital_stats, $this->avatar, $this->id);
+        $stmt = $this->conn->prepare("UPDATE $this->table SET number = ?, name = ?, location = ?, age = ?, height = ?, vital_stats = ?, is_native = ?, avatar = ? WHERE id = ?");
+        $stmt->bind_param("ississisi", $this->number, $this->name, $this->location, $this->age, $this->height, $this->vital_stats, $this->is_native, $this->avatar, $this->id);
         $stmt->execute();
     }
 
@@ -388,6 +391,18 @@ class Team extends App
 
 
     /***************************************************************************
+     * Set is native
+     *
+     * @param int $is_native
+     * @return void
+     */
+    public function setIsNative($is_native)
+    {
+        $this->is_native = $is_native;
+    }
+
+
+    /***************************************************************************
      * Set avatar
      *
      * @param string $avatar
@@ -473,6 +488,28 @@ class Team extends App
     public function getVitalStats()
     {
         return $this->vital_stats;
+    }
+
+
+    /***************************************************************************
+     * Get is native
+     *
+     * @return int
+     */
+    public function getIsNative()
+    {
+        return $this->is_native;
+    }
+
+
+    /***************************************************************************
+     * Check native status
+     *
+     * @return bool
+     */
+    public function isNative()
+    {
+        return $this->is_native == 1;
     }
 
 
