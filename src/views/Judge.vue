@@ -1,5 +1,5 @@
 <template>
-    <top-nav/>
+    <top-nav @toggle-help="handleToggleHelp" @sign-out="handleSignOut"/>
 
     <side-nav/>
 
@@ -303,7 +303,8 @@
                 coordinates: {
                     x: -1,
                     y: -1
-                }
+                },
+                ws: null
             }
         },
         computed: {
@@ -459,6 +460,14 @@
                                 this.totals[`team_${this.teams[i].id}`].value = total;
                                 this.totals[`team_${this.teams[i].id}`].loading = false;
                             }
+
+                            // send active event to websocket server
+                            this.websocketSend(
+                                '__active_event__',
+                                {
+                                    event_id: data.event?.id
+                                }
+                            );
                         },
                         error: (error) => {
                             alert(`ERROR ${error.status}: ${error.statusText}`);
@@ -685,7 +694,51 @@
                 this.coordinates.x = x;
                 this.coordinates.y = y;
                 this.move(x, y, null, false);
+
+                // send active team and column to websocket server
+                this.websocketSend(
+                    '__active_team_column__',
+                    {
+                        team_id: this.teams[y]?.id || 0,
+                        column : x
+                    }
+                );
+            },
+            handleToggleHelp(status) {
+                this.websocketSend('__call_for_help__', { status: status });
+            },
+            handleSignOut() {
+                this.websocketSend('__sign_out__');
+            },
+            websocketSend(action, payload) {
+                if (this.ws.readyState === WebSocket.OPEN) {
+                    this.ws.send(JSON.stringify({
+                        entity : 'judge',
+                        id     : this.$store.getters['auth/getUser']?.id,
+                        action : action,
+                        payload: payload
+                    }));
+                }
             }
+        },
+        created() {
+            // initialize websocket connection
+            this.ws = new WebSocket(`${this.$store.getters['websocketUrl']}?entity=judge&id=${this.$store.getters['auth/getUser']?.id}`);
+
+            // handle websocket open
+            this.ws.onopen = () => {
+                console.log('opened');
+            };
+
+            // handle websocket message
+            this.ws.onmessage = (e) => {
+
+            };
+
+            // handle websocket close
+            this.ws.onclose = () => {
+
+            };
         },
         mounted() {
             this.$emit('startPing');

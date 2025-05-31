@@ -27,6 +27,9 @@ export default createStore({
         deduction: {
             min: 0,
             max: 100
+        },
+        websocket: {
+            url: ''
         }
     },
 
@@ -48,12 +51,23 @@ export default createStore({
         // get window height
         windowHeight(state) {
             return state.window.height;
+        },
+
+        // get websocket url
+        websocketUrl(state) {
+            return state.websocket.url;
         }
     },
 
     mutations: {
+        // set window height
         setWindowHeight(state, n) {
             state.window.height = n;
+        },
+
+        // set websocket server url
+        websocketUrl(state, url) {
+            state.websocket.url = url;
         }
     }
 });
