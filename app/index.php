@@ -75,6 +75,8 @@ $routes = [
     [ "name" => "Arrangements"          , "route" => "crud/orders"              ],
     [ "name" => "Titles"                , "route" => "crud/titles"              ],
     [ "name" => "Rating Sheets"         , "route" => "papers/rating-sheets"     ],
+    [ "name" => "Results: Ordered"      , "route" => "results/ordered"          ],
+    [ "name" => "Results: Ranked"       , "route" => "results/ranked"           ],
     [ "name" => "Bullet Train Dashboard", "route" => "dashboard"                ]
 ];
 ?>
