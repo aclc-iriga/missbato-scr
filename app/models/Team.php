@@ -96,7 +96,7 @@ class Team extends App
             'id'          => $this->id,
             'number'      => $this->number,
             'name'        => $this->name,
-            'location'    => $this->location,
+            'location'    => ($this->isNative() ? '*' : '') . $this->location,
             'age'         => $this->age,
             'height'      => $this->height,
             'vital_stats' => $this->vital_stats,
