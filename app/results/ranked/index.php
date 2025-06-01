@@ -36,7 +36,8 @@ $titles = [
     'Top 17',
     'Top 18',
     'Top 19',
-    'Top 20',
+    'Top 20'
+
 ];
 
 // initialize admin

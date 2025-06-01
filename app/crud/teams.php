@@ -60,12 +60,12 @@
 
                             <div class="form-group">
                                 <label> Height </label>
-                                <input type="text" name="height" class="form-control" placeholder="Enter Height" autocomplete="off" required>
+                                <input type="text" name="height" class="form-control" placeholder="Enter Height" autocomplete="off">
                             </div>
 
                             <div class="form-group">
                                 <label> Vital Stats </label>
-                                <input type="text" name="vital_stats" class="form-control" placeholder="Enter Vital Stats" autocomplete="off" required>
+                                <input type="text" name="vital_stats" class="form-control" placeholder="Enter Vital Stats" autocomplete="off">
                             </div>
 
                             <div class="form-group">
@@ -124,17 +124,17 @@
 
                             <div class="form-group">
                                 <label> Age </label>
-                                <input type="number" name="age" id="age" class="form-control" placeholder="Enter Age" autocomplete="off" required>
+                                <input type="number" name="age" id="age" class="form-control" placeholder="Enter Age" autocomplete="off">
                             </div>
 
                             <div class="form-group">
                                 <label> Height </label>
-                                <input type="text" name="height" id="height" class="form-control" placeholder="Enter Height" autocomplete="off" required>
+                                <input type="text" name="height" id="height" class="form-control" placeholder="Enter Height" autocomplete="off">
                             </div>
 
                             <div class="form-group">
                                 <label> Vital Stats </label>
-                                <input type="text" name="vital_stats" id="vital_stats" class="form-control" placeholder="Enter Vital Stats" autocomplete="off" required>
+                                <input type="text" name="vital_stats" id="vital_stats" class="form-control" placeholder="Enter Vital Stats" autocomplete="off">
                             </div>
 
                             <div class="form-group">
