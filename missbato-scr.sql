@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2025 at 08:37 AM
+-- Generation Time: Jun 03, 2025 at 08:18 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,7 +46,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `number`, `name`, `avatar`, `username`, `password`, `active_portion`, `called_at`, `pinged_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'DEVELOPMENT', 'no-avatar.jpg', 'admin', 'admin', NULL, NULL, NULL, '2023-02-19 07:36:32', '2024-04-13 20:52:44');
+(1, 1, 'DEVELOPMENT', 'no-avatar.jpg', 'admin', 'admin', NULL, NULL, NULL, '2023-02-19 07:36:32', '2025-06-03 06:07:47');
 
 -- --------------------------------------------------------
 
@@ -83,7 +83,7 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `competition_id`, `slug`, `title`, `created_at`, `updated_at`) VALUES
-(1, 1, 'preliminary-screening', 'Preliminary Screening', '2023-04-06 13:25:10', '2023-04-15 02:30:43');
+(1, 1, 'preliminary-screening', 'Preliminary Screening', '2025-05-30 09:40:07', '2025-06-03 06:11:35');
 
 -- --------------------------------------------------------
 
@@ -126,9 +126,10 @@ CREATE TABLE `criteria` (
 --
 
 INSERT INTO `criteria` (`id`, `event_id`, `title`, `percentage`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Beauty of the Face', 50, '2023-04-15 03:46:35', '2023-04-15 03:46:35'),
-(2, 1, 'Figure', 30, '2023-04-15 03:46:54', '2023-04-15 03:46:54'),
-(3, 1, 'Personality and Intelligence', 20, '2023-04-15 03:47:02', '2023-04-15 03:47:02');
+(1, 1, 'Beauty of the Face ', 35, '2025-05-30 09:40:40', '2025-06-03 06:11:59'),
+(2, 1, 'Figure (Contours & Proportion) ', 25, '2025-05-30 09:40:55', '2025-06-03 06:12:01'),
+(3, 1, 'Personality ', 20, '2025-05-30 09:41:07', '2025-06-03 06:12:04'),
+(4, 1, 'Intelligence ', 20, '2025-05-30 09:41:18', '2025-06-03 06:12:07');
 
 -- --------------------------------------------------------
 
@@ -181,7 +182,7 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `category_id`, `slug`, `title`, `created_at`, `updated_at`) VALUES
-(1, 1, 'screening', 'Screening', '2023-04-15 02:42:24', '2025-05-29 06:32:32');
+(1, 1, 'screening', 'screening', '2025-05-30 09:40:19', '2025-06-03 06:11:20');
 
 -- --------------------------------------------------------
 
@@ -208,11 +209,9 @@ CREATE TABLE `judges` (
 --
 
 INSERT INTO `judges` (`id`, `number`, `name`, `avatar`, `username`, `password`, `active_portion`, `called_at`, `pinged_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Judge 01', 'no-avatar.jpg', 'judge01', 'judge01', NULL, NULL, NULL, '2023-04-06 13:58:11', '2025-05-29 06:36:39'),
-(2, 2, 'Judge 02', 'no-avatar.jpg', 'judge02', 'judge02', NULL, NULL, NULL, '2023-04-06 13:58:28', '2025-05-29 06:36:43'),
-(3, 3, 'Judge 03', 'no-avatar.jpg', 'judge03', 'judge03', NULL, NULL, NULL, '2023-04-06 13:58:42', '2025-05-29 06:36:46'),
-(4, 4, 'Judge 04', 'no-avatar.jpg', 'judge04', 'judge04', NULL, NULL, NULL, '2023-04-06 13:59:26', '2025-05-29 06:36:50'),
-(5, 5, 'Judge 05', 'no-avatar.jpg', 'judge05', 'judge05', NULL, NULL, NULL, '2023-04-06 14:00:00', '2025-05-29 06:36:53');
+(1, 1, 'Judge 01', 'no-avatar.jpg', 'Judge01', 'judge01', NULL, NULL, NULL, '2025-05-30 09:26:37', '2025-06-03 06:13:21'),
+(2, 2, 'Judge 02', 'no-avatar.jpg', 'Judge02', 'judge02', NULL, NULL, NULL, '2025-05-30 09:26:52', '2025-06-03 06:13:24'),
+(3, 3, 'Judge 03', 'no-avatar.jpg', 'Judge03', 'judge03', NULL, NULL, NULL, '2025-05-30 09:27:10', '2025-06-03 06:13:26');
 
 -- --------------------------------------------------------
 
@@ -236,11 +235,9 @@ CREATE TABLE `judge_event` (
 --
 
 INSERT INTO `judge_event` (`id`, `judge_id`, `event_id`, `is_chairman`, `active_team_id`, `has_active_team`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 0, 1, 0, '2023-04-15 02:54:24', '2024-04-22 10:59:18'),
-(2, 2, 1, 0, 1, 0, '2023-04-15 02:54:31', '2024-04-22 10:59:18'),
-(3, 3, 1, 0, 1, 0, '2023-04-15 02:54:35', '2024-04-22 10:59:18'),
-(4, 4, 1, 0, 1, 0, '2023-04-15 02:54:41', '2024-04-22 10:59:18'),
-(5, 5, 1, 0, 1, 0, '2023-04-15 02:54:46', '2024-04-22 10:59:18');
+(1, 1, 1, 0, 1, 0, '2025-06-01 01:54:49', '2025-06-03 06:13:35'),
+(2, 2, 1, 0, 1, 0, '2025-06-01 01:55:01', '2025-06-03 06:13:38'),
+(3, 3, 1, 0, 1, 0, '2025-06-01 01:55:20', '2025-06-03 06:13:41');
 
 -- --------------------------------------------------------
 
@@ -333,37 +330,41 @@ CREATE TABLE `teams` (
 --
 
 INSERT INTO `teams` (`id`, `number`, `name`, `location`, `age`, `height`, `vital_stats`, `is_native`, `avatar`, `created_at`, `updated_at`) VALUES
-(1, 1, 'EMMYLOU BONIT', 'Camarines Sur', 25, '5\'5 ', '36 - 29 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:15:09'),
-(2, 2, 'ANTONETTE SUNGA', 'Camarines Sur', 22, '5\'2', ' 34 - 28 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:44:59'),
-(3, 3, 'IRIS ORESCA', 'Camarines Sur', 21, '5\'5', '33.5 - 26.5 - 36.5', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:46:05'),
-(4, 4, 'KAYE PAULINE SERVIDAD', 'Camarines Sur', 21, '5\'4', '33.5 - 26 - 35', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:46:59'),
-(5, 5, 'MARY JOY DARILAY', 'Camarines Sur', 22, '5\'7', '35.5 - 26.5 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:48:07'),
-(6, 6, 'KEINSTER KHRIZETTE RANARA\n', 'Camarines Sur', 24, '5\'8', '33 - 25 - 34', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 19:48:49'),
-(7, 7, 'CHRISTINE OVILLA', 'Camarines Sur', 20, '5\'3', '32 - 26 - 34', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:54'),
-(8, 8, 'CHRISTINE ARNEDO', 'Camarines Sur', 25, '5\'6', '34 - 26.5 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:56'),
-(9, 9, 'HANNAH MAE PANIBE', 'Camarines Sur', 25, '5\'4', '33 - 26 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:58'),
-(10, 10, 'NEOLI KRYSS ABARIENTOS', 'Camarines Sur', 18, '5\'4', '36 - 26 - 37', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:45:59'),
-(11, 11, 'MIKKI ANGELA BARCELA', 'Camarines Sur', 21, '5\'6', '33 - 26 - 35', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:01'),
-(12, 12, 'THIARA MARIE SAN PABLO', 'Camarines Sur', 21, '5\'6', '33 - 27 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:03'),
-(13, 13, 'JODELYN MENDOZA', 'Camarines Sur', 20, '5\'2', '31.5 - 25 - 35', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:05'),
-(14, 14, 'MARGA JOYCE SAYSON', 'Camarines Sur', 23, '5\'4', '32 - 25.5 - 35.5', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:07'),
-(15, 15, 'YZANDRA FELINE GOROBAT', 'Camarines Sur', 21, '5\'3', '30 - 25 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:09'),
-(16, 16, 'KASSANDRA AVENA', 'Camarines Sur', 17, '5\'3', '36 - 28 - 37', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:10'),
-(17, 17, 'CHARLENE BOHOLANO', 'Camarines Sur', 21, '5\'6', '30 - 26 - 34', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:11'),
-(18, 18, 'MARIA YSABELLE SAPIENZA', 'Camarines Sur', 19, '5\'4', '34 - 30 - 38', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:17'),
-(19, 19, 'AYSSA MILORED VILLARINA', 'Camarines Sur', 22, '5\'5', '31 - 26.5 - 35', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:15'),
-(20, 20, 'SANDIP KAUR KALER', 'Camarines Sur', 23, '5\'7', '33 - 28 - 36', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:19'),
-(21, 21, 'KATRINA CLAUDIA JAMIN', 'Camarines Sur', 22, '5\'5', '31 - 27 - 35', 1, 'candidate.png', '2023-04-16 07:07:51', '2024-04-13 20:46:20'),
-(22, 22, 'TRISHIA BARNEDO', 'Camarines Sur', 19, '5\'4', '32 - 27 - 36', 1, 'candidate.png', '2023-04-16 07:49:21', '2024-04-13 20:46:21'),
-(23, 23, 'MARIA PAULA BATALLA', 'Camarines Sur', 25, '5\'3', '32 - 25 - 34', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:23'),
-(24, 24, 'RUFFA MAE ARMILLOS', 'Camarines Sur', 23, '5\'5', '33 - 25 - 35', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:24'),
-(25, 25, 'SEANNEL ADDERIE CRUZ ', 'Camarines Sur', 22, '5\'3', '32 - 25.5 - 34', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:27'),
-(26, 26, 'PRINCESS LYN LANZUELA', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:31'),
-(27, 27, 'SHAINA RABACAL', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:34'),
-(28, 28, 'JAMAICA JOVELLE ORTIZ', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:37'),
-(29, 29, 'ANGELA SHERIZA TINO', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:40'),
-(30, 30, 'KRISTEL OLIVE REJESUS', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:43'),
-(31, 31, 'TRIZIA MARIE ABONITA', 'Camarines Sur', 0, '', '', 1, 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:45');
+(1, 1, 'MICHELLE B. CALLEJA', 'IRIGA CITY', 19, '', '', 0, 'candidate.png', '2025-06-01 01:05:16', '2025-06-03 06:14:12'),
+(2, 2, 'MARIEL B. CHAVEZ', 'SAN JUAN, BATO', 21, '', '', 1, 'candidate.png', '2025-06-01 01:06:12', '2025-06-03 06:14:15'),
+(3, 3, 'JOHANNA LEEANN C. RECUENCO ', 'NABUA', 21, '', '', 0, 'candidate.png', '2025-06-01 01:07:19', '2025-06-03 06:14:17'),
+(4, 4, 'SHENA A. LAÑADA ', 'NABUA', 22, '', '', 0, 'candidate.png', '2025-06-01 01:08:25', '2025-06-03 06:14:20'),
+(5, 5, 'PRINCESS L. MALAPAD', 'CAMARINES NORTE ', 19, '', '', 0, 'candidate.png', '2025-06-01 01:09:46', '2025-06-03 06:14:22'),
+(6, 6, 'MIKYLA ASHLEY BRUTAS', 'LAGONOY', 20, '', '', 0, 'candidate.png', '2025-06-01 01:12:08', '2025-06-03 06:14:25'),
+(7, 7, 'LOUIE RHIANNE A. MURILLO ', 'BULA', 16, '', '', 0, 'candidate.png', '2025-06-01 01:13:21', '2025-06-03 06:14:28'),
+(8, 8, 'ASHLEY BERNADETTE G. BELLELA ', 'NAGA CITY', 19, '', '', 0, 'candidate.png', '2025-06-01 01:15:05', '2025-06-03 06:14:31'),
+(9, 9, 'JAMILA GONZALES ', 'IRIGA CITY ', 20, '', '', 0, 'candidate.png', '2025-06-01 01:18:29', '2025-06-03 06:14:34'),
+(10, 10, 'ROHANNA MAE C. MUÑOZ', 'IRIGA CITY', 21, '', '', 0, 'candidate.png', '2025-06-01 01:19:28', '2025-06-03 06:14:37'),
+(11, 11, 'AUDREY ALEXANDRA B. VILLA ', 'BAAO ', 21, '', '', 0, 'candidate.png', '2025-06-01 01:24:05', '2025-06-03 06:14:39'),
+(12, 12, 'ANGELYNN M. MATUSIÑO', 'LIBON, ALBAY ', 22, '', '', 0, 'candidate.png', '2025-06-01 01:24:59', '2025-06-03 06:14:41'),
+(13, 13, 'MARIFRANZ S. RICO ', 'GOA', 21, '', '', 0, 'candidate.png', '2025-06-01 01:30:19', '2025-06-03 06:14:44'),
+(14, 14, 'RICA JANE L. PEÑALBA ', 'SORSOGON ', 22, '', '', 0, 'candidate.png', '2025-06-01 01:31:24', '2025-06-03 06:14:47'),
+(15, 15, 'AGATHA KAYE M. OLAYON', 'IRIGA CITY', 23, '', '', 0, 'candidate.png', '2025-06-01 01:33:36', '2025-06-03 06:14:51'),
+(16, 16, 'IRISH JANE V. BARCO', 'DAET', 20, '', '', 0, 'candidate.png', '2025-06-01 01:36:41', '2025-06-03 06:14:54'),
+(17, 17, 'CRIS ADELY R. CABALAN', 'BATO', 20, '', '', 1, 'candidate.png', '2025-06-01 01:39:25', '2025-06-03 06:14:57'),
+(18, 18, 'CYRISH A. HUGO', 'BATO', 19, '', '', 1, 'candidate.png', '2025-06-01 01:40:24', '2025-06-03 06:15:01'),
+(19, 19, 'BARBIE ANNE D. FLORIANO', 'IRIGA CITY', 21, '', '', 0, 'candidate.png', '2025-06-01 01:41:39', '2025-06-03 06:15:04'),
+(20, 20, 'AALIYAH KRYSTELA DAVID', 'BATO', 18, '', '', 1, 'candidate.png', '2025-06-01 01:42:42', '2025-06-03 06:15:07'),
+(21, 21, 'HAZEL BERJA', 'BATO', 19, '', '', 1, 'candidate.png', '2025-06-01 01:43:33', '2025-06-03 06:15:09'),
+(22, 22, 'JEANALUZ AYEN B. SARAHAN', 'BATO ', 18, '', '', 1, 'candidate.png', '2025-06-01 04:58:43', '2025-06-03 06:15:11'),
+(23, 23, 'LISA MAE O. GENERAL ', 'PILI ', 25, '', '', 0, 'candidate.png', '2025-06-01 04:59:19', '2025-06-03 06:15:14'),
+(24, 24, 'KAZZANDRA SETON', 'SIRUMA ', 23, '', '', 0, 'candidate.png', '2025-06-01 04:59:48', '2025-06-03 06:15:17'),
+(25, 25, 'NEOLI ABARIENTOS ', 'NABUA', 20, '', '', 0, 'candidate.png', '2025-06-01 05:00:08', '2025-06-03 06:15:20'),
+(26, 26, 'AILA MAE N. ROSALDO ', 'BATO', 16, '', '', 1, 'candidate.png', '2025-06-01 06:04:22', '2025-06-03 06:15:23'),
+(27, 27, 'RICA B. BUENA ', 'BATO ', 24, '', '', 1, 'candidate.png', '2025-06-01 06:04:52', '2025-06-03 06:15:26'),
+(28, 28, 'ALYSSA MAY PINTOR', 'LIGAO CITY, ALBAY', 20, '', '', 0, 'candidate.png', '2025-06-01 06:06:00', '2025-06-03 06:15:28'),
+(29, 29, 'MEIN MEI EGIPTO', 'BATO', 21, '', '', 1, 'candidate.png', '2025-06-01 06:06:35', '2025-06-03 06:15:31'),
+(30, 30, 'GRECHELLE YVONE  MURILLO ', 'BATO', 17, '', '', 1, 'candidate.png', '2025-06-01 06:07:06', '2025-06-03 06:15:35'),
+(31, 31, 'HANNAH GRACE A. CLAVILLAS', 'BUHI', 20, '', '', 0, 'candidate.png', '2025-06-01 06:16:44', '2025-06-03 06:15:39'),
+(32, 32, 'RICA STEPHANIE UBALDO', 'CABUSAO', 18, '', '', 0, 'candidate.png', '2025-06-01 06:17:09', '2025-06-03 06:15:42'),
+(33, 33, 'PRINCESS LEXI', 'POLANGUI, ALBAY ', 18, '', '', 0, 'candidate.png', '2025-06-01 06:17:35', '2025-06-03 06:15:45'),
+(34, 34, 'CASSANDRA COMPLETO ', 'BULA', 18, '', '', 0, 'candidate.png', '2025-06-01 06:30:01', '2025-06-03 06:15:49'),
+(35, 35, 'ALEXANDRA KRISHA ORIÑO', 'NAGA', 21, '', '', 0, 'candidate.png', '2025-06-01 06:30:35', '2025-06-03 06:15:53');
 
 -- --------------------------------------------------------
 
@@ -428,26 +429,26 @@ CREATE TABLE `titles` (
 --
 
 INSERT INTO `titles` (`id`, `event_id`, `rank`, `title`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Top 01', '2023-04-15 03:19:48', '2023-04-15 03:52:38'),
-(2, 1, 2, 'Top 02', '2023-04-15 03:19:48', '2023-04-15 03:52:42'),
-(3, 1, 3, 'Top 03', '2023-04-15 03:19:48', '2023-04-15 03:52:45'),
-(4, 1, 4, 'Top 04', '2023-04-15 03:19:48', '2023-04-15 03:52:48'),
-(5, 1, 5, 'Top 05', '2023-04-15 03:19:48', '2023-04-15 03:52:52'),
-(6, 1, 6, 'Top 06', '2023-04-15 03:19:48', '2023-04-15 03:52:55'),
-(7, 1, 7, 'Top 07', '2023-04-15 03:19:48', '2023-04-15 03:52:58'),
-(8, 1, 8, 'Top 08', '2023-04-15 03:19:48', '2023-04-15 03:53:01'),
-(9, 1, 9, 'Top 09', '2023-04-15 03:19:48', '2023-04-15 03:53:05'),
-(10, 1, 10, 'Top 10', '2023-04-15 03:19:48', '2023-04-15 03:21:41'),
-(11, 1, 11, 'Top 11', '2023-04-15 03:19:48', '2023-04-15 03:21:44'),
-(12, 1, 12, 'Top 12', '2023-04-15 03:19:48', '2023-04-15 03:21:46'),
-(13, 1, 13, 'Top 13', '2023-04-15 03:19:48', '2023-04-15 03:21:49'),
-(14, 1, 14, 'Top 14', '2023-04-15 03:19:48', '2023-04-15 03:21:52'),
-(15, 1, 15, 'Top 15', '2023-04-15 03:19:48', '2024-04-13 12:42:50'),
-(16, 1, 16, 'Top 16', '2023-04-29 13:25:24', '2024-04-13 12:44:36'),
-(17, 1, 17, 'Top 17', '2023-04-29 13:25:24', '2024-04-13 12:44:39'),
-(18, 1, 18, 'Top 18', '2023-04-29 13:25:24', '2024-04-13 12:44:42'),
-(19, 1, 19, 'Top 19', '2023-04-29 13:25:24', '2024-04-13 12:44:44'),
-(20, 1, 20, 'Top 20', '2023-04-29 13:25:24', '2024-04-13 12:44:48');
+(1, 1, 1, 'Top 01', '2025-06-01 01:21:49', '2025-06-03 06:17:21'),
+(2, 1, 2, 'Top 02', '2025-06-01 01:21:49', '2025-06-03 06:17:24'),
+(3, 1, 3, 'Top 03', '2025-06-01 01:21:49', '2025-06-03 06:17:26'),
+(4, 1, 4, 'Top 04', '2025-06-01 01:21:49', '2025-06-03 06:17:29'),
+(5, 1, 5, 'Top 05', '2025-06-01 01:21:49', '2025-06-03 06:17:32'),
+(6, 1, 6, 'Top 06', '2025-06-01 01:21:49', '2025-06-03 06:17:35'),
+(7, 1, 7, 'Top 07', '2025-06-01 01:21:49', '2025-06-03 06:17:38'),
+(8, 1, 8, 'Top 08', '2025-06-01 01:21:49', '2025-06-03 06:17:40'),
+(9, 1, 9, 'Top 09', '2025-06-01 01:21:49', '2025-06-03 06:17:43'),
+(10, 1, 10, 'Top 10', '2025-06-01 01:21:49', '2025-06-03 06:17:46'),
+(11, 1, 11, 'Top 11', '2025-06-01 01:24:09', '2025-06-03 06:17:49'),
+(12, 1, 12, 'Top 12', '2025-06-01 01:25:01', '2025-06-03 06:17:51'),
+(13, 1, 13, 'Top 13', '2025-06-01 01:30:21', '2025-06-03 06:17:54'),
+(14, 1, 14, 'Top 14', '2025-06-01 01:31:25', '2025-06-03 06:17:57'),
+(15, 1, 15, 'Top 15', '2025-06-01 01:33:37', '2025-06-03 06:18:00'),
+(16, 1, 16, 'Top 16', '2025-06-01 01:36:41', '2025-06-03 06:18:03'),
+(17, 1, 17, 'Top 17', '2025-06-01 01:39:25', '2025-06-03 06:18:05'),
+(18, 1, 18, 'Top 18', '2025-06-01 01:40:25', '2025-06-03 06:18:08'),
+(19, 1, 19, 'Top 19', '2025-06-01 01:41:41', '2025-06-03 06:18:12'),
+(20, 1, 20, 'Top 20', '2025-06-01 01:42:45', '2025-06-03 06:18:15');
 
 --
 -- Indexes for dumped tables
@@ -618,7 +619,7 @@ ALTER TABLE `competitions`
 -- AUTO_INCREMENT for table `criteria`
 --
 ALTER TABLE `criteria`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `deductions`
@@ -630,7 +631,7 @@ ALTER TABLE `deductions`
 -- AUTO_INCREMENT for table `eliminations`
 --
 ALTER TABLE `eliminations`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -642,13 +643,13 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `judges`
 --
 ALTER TABLE `judges`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `judge_event`
 --
 ALTER TABLE `judge_event`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `noshows`
@@ -678,7 +679,7 @@ ALTER TABLE `ratings`
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `technicals`
