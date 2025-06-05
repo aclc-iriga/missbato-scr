@@ -304,6 +304,7 @@
                     x: -1,
                     y: -1
                 },
+                competition: '',
                 ws: null
             }
         },
@@ -711,23 +712,25 @@
                 this.websocketSend('__sign_out__');
             },
             websocketSend(action, payload) {
-                if (this.ws.readyState === WebSocket.OPEN) {
+                if (this.ws !== null && this.ws.readyState === WebSocket.OPEN) {
                     this.ws.send(JSON.stringify({
-                        entity : 'judge',
-                        id     : this.$store.getters['auth/getUser']?.id,
-                        action : action,
-                        payload: payload
+                        competition: this.competition,
+                        entity     : 'judge',
+                        id         : this.$store.getters['auth/getUser']?.id,
+                        action     : action,
+                        payload    : payload
                     }));
                 }
             }
         },
         created() {
             // initialize websocket connection
-            this.ws = new WebSocket(`${this.$store.getters['websocketUrl']}?entity=judge&id=${this.$store.getters['auth/getUser']?.id}`);
+            this.competition = import.meta.env.BASE_URL.replaceAll('/', '');
+            this.ws = new WebSocket(`${this.$store.getters['websocketUrl']}?competition=${this.competition}&entity=judge&id=${this.$store.getters['auth/getUser']?.id}`);
 
             // handle websocket open
             this.ws.onopen = () => {
-                console.log('opened');
+
             };
 
             // handle websocket message

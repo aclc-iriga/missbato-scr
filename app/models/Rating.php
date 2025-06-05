@@ -452,4 +452,35 @@ class Rating extends App
     {
         return $this->table;
     }
+
+
+    /***************************************************************************
+     * Swap the ratings between two given teams in the given events.
+     *
+     * @param Team $team1
+     * @param Team $team2
+     * @param Event[] $events
+     * @return void
+     */
+    public static function exchange($team1, $team2, $events)
+    {
+        // iterate events
+        foreach ($events as $event) {
+            // iterate event judges
+            foreach ($event->getAllJudges() as $judge) {
+                // iterate criteria
+                foreach ($event->getAllCriteria() as $criterion) {
+                    // judge's criterion rating for team1
+                    $team1_rating = $judge->getCriterionTeamRating($criterion, $team1);
+
+                    // judge's criterion rating for team2
+                    $team2_rating = $judge->getCriterionTeamRating($criterion, $team2);
+
+                    // E X C H A N G E !!!
+                    $judge->setCriterionTeamRating($criterion, $team1, $team2_rating->getValue(), $team1_rating->getIsLocked());
+                    $judge->setCriterionTeamRating($criterion, $team2, $team1_rating->getValue(), $team2_rating->getIsLocked());
+                }
+            }
+        }
+    }
 }
