@@ -6,7 +6,10 @@
 
     // get admin user
     $admin_assoc = User::getUser();
-    
+
+    // get project directory (competition)
+    $competition = explode('/', trim($_SERVER['REQUEST_URI'], '/'))[0];
+
     // get websocket url
     $websocket_url = '';
     if (file_exists(__DIR__ . '/../config/websocket.php')) {
@@ -167,7 +170,7 @@
         created() {
             if (this.websocket.url !== '') {
                 // initialize websocket connection
-                this.websocket.conn = new WebSocket(`${this.websocket.url}?entity=dashboard&id=${this.admin?.id}`);
+                this.websocket.conn = new WebSocket(`${this.websocket.url}?competition=<?= $competition ?>&entity=dashboard&id=${this.admin?.id}`);
 
                 // handle websocket open
                 this.websocket.conn.onopen = () => {
