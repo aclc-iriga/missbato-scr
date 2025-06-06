@@ -400,23 +400,26 @@
                 }
                 return teamRanks;
             },
-            ties() {
-                const rankGroups = {};
+            tieGroups() {
+                const tieGroups = {};
                 for(const teamKey in this.ranks) {
                     const rank = this.ranks[teamKey];
                     const rankKey = `rank_${rank}`;
-                    if(!(rankKey in rankGroups)) {
-                        rankGroups[rankKey] = [];
+                    if(!(rankKey in tieGroups)) {
+                        tieGroups[rankKey] = [];
                     }
-                    rankGroups[rankKey].push(teamKey);
+                    tieGroups[rankKey].push(teamKey);
                 }
 
+                return tieGroups;
+            },
+            ties() {
                 const ties = {};
                 let ctr = -1;
-                for(const rankKey in rankGroups) {
+                for(const rankKey in this.tieGroups) {
                     const rank = rankKey.replace('rank_', '');
                     ctr += 1;
-                    const teamKeys = rankGroups[rankKey];
+                    const teamKeys = this.tieGroups[rankKey];
                     if (teamKeys.length > 1) {
                         for (let i = 0; i < teamKeys.length; i++) {
                             if (!(teamKeys[i] in ties)) {
@@ -617,7 +620,7 @@
                                     this.totals[`team_${this.teams[i].id}`].is_locked = rating[`${this.$store.getters['auth/getUser'].id}_${criterion.id}_${this.teams[i].id}`].is_locked
                                     total += value;
                                 }
-                                this.totals[`team_${this.teams[i].id}`].value = total;
+                                this.totals[`team_${this.teams[i].id}`].value = parseFloat(total.toFixed(2));
                                 this.totals[`team_${this.teams[i].id}`].loading = false;
                             }
 
@@ -647,7 +650,7 @@
                 }
 
                 // accumulate total adds into totals object
-                this.totals[`team_${team.id}`].value = total;
+                this.totals[`team_${team.id}`].value = parseFloat(total.toFixed(2));
             },
             saveRating(rating, percentage, team) {
                 this.totals[`team_${team.id}`].loading = true;
@@ -657,6 +660,11 @@
                     rating.value = 0;
                 else if (rating.value > percentage)
                     rating.value = percentage;
+
+                // round off rating
+                rating.value = parseFloat(parseFloat(rating.value).toFixed(2));
+
+                // handle rating keyup
                 this.handleRatingKeyUp(team);
 
                 // auto-save ratings
@@ -695,11 +703,16 @@
 
                 // total score divided and distributed based on criteria percentage
                 let ratings = [];
+                let total   = 0;
                 for (let criterion of this.criteria) {
                     const rating = this.ratings[`${this.event.slug}_${team.id}`][`${this.$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`];
-                    rating.value = this.totals[`team_${team.id}`].value * (criterion.percentage / this.totalCriteriaPercentage);
+                    rating.value = parseFloat((this.totals[`team_${team.id}`].value * (criterion.percentage / this.totalCriteriaPercentage)).toFixed(2));
                     ratings.push(rating);
+                    total += rating.value;
                 }
+
+                // write back total for precision
+                this.totals[`team_${team.id}`].value = parseFloat(total.toFixed(2));
 
                 // auto-save total score
                 $.ajax({
