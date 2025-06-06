@@ -71,7 +71,7 @@
                             :min="$store.state.deduction.min"
                             :max="$store.state.deduction.max"
                             :loading="deductions[`${event.slug}_${team.id}`].loading"
-                            v-model.number="deductions[`${event.slug}_${team.id}`].value"
+                            v-model="deductions[`${event.slug}_${team.id}`].value"
                             @change="saveDeduction(deductions[`${event.slug}_${team.id}`], team.id)"
                             :class="{
                                 'text-error font-weight-bold': (
