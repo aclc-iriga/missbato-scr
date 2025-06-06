@@ -62,8 +62,11 @@
                         :class="$vuetify.display.mdAndDown ? 'text-body-1' : 'text-h6'"
 					>
 						Rank
-                        <p class="ma-0 text-subtitle-2">&nbsp;</p>
+                        <p class="ma-0 text-subtitle-2" :class="{ 'text-success': tiesTotal <= 0, 'text-warning': tiesTotal > 0 }">
+                            (<b v-if="tiesTotal > 0">{{ tiesTotal }}</b><span v-else>NO</span> TIE<template v-if="tiesTotal > 1">S</template>)
+                        </p>
 					</th>
+                    <th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -175,16 +178,42 @@
 						/>
 					</td>
                     <td
-                        class="text-center font-weight-bold"
+                        class="text-center font-weight-bold pa-0"
                         :class="{
                             'text-grey-darken-2': coordinates.y != teamIndex && !scoreSheetDisabled,
                             'text-grey-darken-4': coordinates.y == teamIndex && !scoreSheetDisabled,
                             'text-grey-darken-1': scoreSheetDisabled,
                         }"
                     >
-                        <span :style="{'opacity': team.disabled ? 0.6 : 1}">{{ ranks[`team_${team.id}`] }}</span>
+                        <h4 class="ma-0" style="font-size: 1.1rem;" :style="{'opacity': team.disabled ? 0.6 : 1}">{{ ranks[`team_${team.id}`] }}</h4>
                     </td>
-				</tr>
+                    <td class="pa-0 text-center">
+                        <template v-if="`team_${team.id}` in ties">
+                            <v-tooltip location="top" :content-class="'transparent-tooltip'">
+                                <template #activator="{ props }">
+                                    <svg
+                                        v-bind="props"
+                                        width="12"
+                                        height="12"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        style="cursor: pointer; opacity: 0.7"
+                                    >
+                                        <circle cx="6" cy="6" r="6" :fill="ties[`team_${team.id}`].color" />
+                                    </svg>
+                                </template>
+                                <span
+                                    style="color: white; padding: 4px 8px; border-radius: 4px; display: inline-block; opacity: 0.7"
+                                    :style="{ 'background-color': ties[`team_${team.id}`].color }"
+                                >
+                                    {{ ties[`team_${team.id}`].tooltip }}
+                                </span>
+                            </v-tooltip>
+                        </template>
+                        <svg v-else width="12" height="12" xmlns="http://www.w3.org/2000/svg" style="visibility: hidden">
+                            <circle cx="6" cy="6" r="6" fill="#FF0000" />
+                        </svg>
+                    </td>
+                </tr>
 			</tbody>
 			<!--	Dialog	  -->
 			<tfoot>
@@ -309,6 +338,14 @@
             }
         },
         computed: {
+            teamsAssoc() {
+                const teams = {};
+                for (let i = 0; i < this.teams.length; i++) {
+                    teams[`team_${this.teams[i].id}`] = this.teams[i];
+                }
+
+                return teams;
+            },
             ranks() {
                 const teamRanks = {};
 
@@ -363,6 +400,55 @@
                 }
                 return teamRanks;
             },
+            ties() {
+                const rankGroups = {};
+                for(const teamKey in this.ranks) {
+                    const rank = this.ranks[teamKey];
+                    const rankKey = `rank_${rank}`;
+                    if(!(rankKey in rankGroups)) {
+                        rankGroups[rankKey] = [];
+                    }
+                    rankGroups[rankKey].push(teamKey);
+                }
+
+                const ties = {};
+                let ctr = -1;
+                for(const rankKey in rankGroups) {
+                    const rank = rankKey.replace('rank_', '');
+                    ctr += 1;
+                    const teamKeys = rankGroups[rankKey];
+                    if (teamKeys.length > 1) {
+                        for (let i = 0; i < teamKeys.length; i++) {
+                            if (!(teamKeys[i] in ties)) {
+                                ties[teamKeys[i]] = {
+                                    rank   : rank,
+                                    color  : this.primaryColors[ctr],
+                                    equals : {
+                                        teamKeys   : [],
+                                        teamNumbers: [],
+                                        phrase     : ''
+                                    },
+                                    tooltip: ''
+                                }
+                            }
+                            for (let j = 0; j < teamKeys.length; j++) {
+                                if (teamKeys[j] !== teamKeys[i]) {
+                                    ties[teamKeys[i]].equals.teamKeys.push(teamKeys[j]);
+                                    ties[teamKeys[i]].equals.teamNumbers.push(`#${this.teamsAssoc[teamKeys[j]].number}`);
+                                }
+                            }
+                            // compute tooltip
+                            ties[teamKeys[i]].equals.phrase = ties[teamKeys[i]].equals.teamNumbers.join(', ').replace(/, ([^,]*)$/, ' and $1');
+                            ties[teamKeys[i]].tooltip = `Candidate #${this.teamsAssoc[teamKeys[i]].number} is TIE with Candidate${ties[teamKeys[i]].equals.teamKeys.length > 1 ? 's' : ''} ${ties[teamKeys[i]].equals.phrase} at RANK ${rank}.`
+                        }
+                    }
+                }
+
+                return ties;
+            },
+            tiesTotal() {
+                return Object.keys(this.ties).length;
+            },
             scoreSheetHeight() {
                 return this.$store.getters.windowHeight - 64;
             },
@@ -414,6 +500,79 @@
                     };
                 }
                 return errors;
+            },
+            primaryColors() {
+                const colors = [];
+                const n = this.teams.length || 1;
+                const GOLDEN_ANGLE = 137.508;
+
+                // HSL to RGB
+                const hslToRgb = (h, s, l) => {
+                    h /= 360;
+                    let r, g, b;
+                    if (s === 0) {
+                        r = g = b = l;
+                    }
+                    else {
+                        const hue2rgb = (p, q, t) => {
+                            if (t < 0) t += 1;
+                            if (t > 1) t -= 1;
+                            if (t < 1 / 6) return p + (q - p) * 6 * t;
+                            if (t < 1 / 2) return q;
+                            if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+                            return p;
+                        };
+                        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                        const p = 2 * l - q;
+                        r = hue2rgb(p, q, h + 1 / 3);
+                        g = hue2rgb(p, q, h);
+                        b = hue2rgb(p, q, h - 1 / 3);
+                    }
+                    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+                };
+
+                // RGB to HEX
+                const rgbToHex = (r, g, b) => {
+                    const toHex = (x) => x.toString(16).padStart(2, "0");
+                    return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
+                };
+
+                // contrast ratio for white (255,255,255)
+                const getLuminance = (r, g, b) => {
+                    const toLinear = (c) => {
+                        c /= 255;
+                        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+                    };
+                    const [R, G, B] = [toLinear(r), toLinear(g), toLinear(b)];
+                    return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+                };
+
+                const contrastWithWhite = (r, g, b) => {
+                    const lum1 = getLuminance(r, g, b);
+                    const lum2 = 1; // white
+                    return (lum2 + 0.05) / (lum1 + 0.05); // must be >= 4.5 for normal text
+                };
+
+                for (let i = 0; i < n; i++) {
+                    const hue = (i * GOLDEN_ANGLE) % 360;
+                    let saturation = 0.65;
+                    let lightness = 0.45;
+
+                    let r, g, b;
+                    let contrast = 0;
+
+                    // try darker shades until contrast >= 4.5
+                    while (lightness > 0.2) {
+                        [r, g, b] = hslToRgb(hue, saturation, lightness);
+                        contrast = contrastWithWhite(r, g, b);
+                        if (contrast >= 4.5) break;
+                        lightness -= 0.05;
+                    }
+
+                    colors.push(rgbToHex(r, g, b));
+                }
+
+                return colors;
             }
         },
         watch: {
@@ -749,6 +908,13 @@
     }
 </script>
 
+<style>
+    .transparent-tooltip {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+</style>
 
 <style scoped>
     tbody td, th {
