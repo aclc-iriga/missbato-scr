@@ -111,7 +111,7 @@
 							:min="0"
 							:max="criterion.percentage"
 							@change="saveRating(ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`], criterion.percentage, team)"
-							v-model.number="ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value"
+							v-model="ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value"
 							:class="{
 								'text-error font-weight-bold': (
 									ratings[`${event.slug}_${team.id}`][`${$store.getters['auth/getUser'].id}_${criterion.id}_${team.id}`].value < 0 ||
@@ -152,7 +152,7 @@
                             variant="outlined"
                             hide-details
 							:loading="totals[`team_${team.id}`].loading"
-							v-model.number="totals[`team_${team.id}`].value"
+							v-model="totals[`team_${team.id}`].value"
 							:min="minRating"
 							:max="maxRating"
 							@change="calculateTotalScores(team)"
